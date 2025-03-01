@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <sstream>
 
 enum Bazis
 {
@@ -72,13 +73,16 @@ inline char cast(Bazis b, bool upper = true)
 
 class Allapot
 {
+public:
     bool accepted;
     std::string allapotName;
-    Allapot(bool a, std::string name)
+
+    void setAllapot(bool a, std::string name)
     {
         this->accepted = a;
         this->allapotName = name;
     }
+    /* 1: adenin, 2:citozin, 3: guanin, 4: timin*/
     int nextState[4];
 };
 bool charToBool(char a)
@@ -90,7 +94,7 @@ bool charToBool(char a)
 
 int main(void)
 {
-    std::ifstream f("paros.txt");
+    std::ifstream f("implikacio.txt");
     std::string buffer;
     std::getline(f, buffer);
     // std::cout << buffer << std::endl;
@@ -105,6 +109,18 @@ int main(void)
         allapotnev = buffer.substr(2);
         accepted = charToBool(buffer[0]);
         std::cout << "Az állapot neve: " << allapotnev << " elfogadva:" << accepted << std::endl;
-        allapotok[i] = new Allapot(accepted, allapotnev);
+        allapotok[i].setAllapot(accepted, allapotnev);
+        std::cout << allapotok[i].accepted << allapotok[i].allapotName << std::endl;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        std::getline(f, buffer);
+        std::istringstream stream(buffer);
+        std::string token;
+        for (int j = 0; j < n; j++)
+        {
+            stream >> token;
+            std::cout << "Column " << j + 1 << ": " << token << std::endl;
+        }
     }
 }
