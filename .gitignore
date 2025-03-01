@@ -1,0 +1,36 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+!Makefile
+*.sln 
+*.o
+*.cbp
+*vcxproj
+# Ignore common binary file types
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.o
+*.a
+*.out
+*.app
+*.obj
+*.class
+*.psd
+*.jpg
+*.png
+*.gif
+*.mp4
+*.avi
+*.zip
+*.tar.gz
+*.rar
+*.tar
+*.7z

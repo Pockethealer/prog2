@@ -1,0 +1,19 @@
+EAS7U0
+1.laborgyakorlat jegyzőkönyv
+
+- g++ --help kimenete: a g++ használatát és flageit írja le. 
+pl: -E : Preprocess only; do not compile, assemble or link.
+- az egyszerű main.cpp programot lefordítottam g++-al és megnéztem a -E flag működését,
+ami csak a preprocesszeket írta ki, nem csinált semmi mást.
+- használtam a makrókat (#define) amellyel definiálni lehet adott dolgokat, 
+amit a program onnantól úgy értelmez ahogy előtte definiálva lett
+- megcsináltam a foo.cpp és main2.cpp fileokat, ezeket 
+egyesével átfordítottam .o objektummá, és ezután összelinkeltem, hogy megkapjam a futtatható binárist.
+- kipróbáltam az include guard funkciót, és megállapítottam hogy segít a redefiniálás elkerülésében, mert ha kétszer includeolnék 
+include guard nélkül akkor meghal a program mert nem lehet kétszer definiálni semmit.
+- a warning.cpp fordításánál megnéztem hogy milyen warningot dob: warning: ‘a’ is used uninitialized, mert nem voltak aposztrófok az a körül így objektumnak érzékelte ami nem volt definiálva 
+de az újabb szabványokban már nem zavarja hogy nincsen definiálva, így is lefordul, csak warningot dob.
+- a Wall kilistázza az összes warningot, a -Werror errort dob bármely warningra,
+a -o az output filet definiálja, a -O0 optimalizálja a fordítási folyamatot.
+- kipróbálta az auto típusdefiníciós auto.cpp-t, a c++03-al még nem de a c++11-el már lefordult.
+
