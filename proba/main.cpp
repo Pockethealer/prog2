@@ -84,6 +84,41 @@ public:
     }
     /* 1: adenin, 2:citozin, 3: guanin, 4: timin*/
     int nextState[4];
+    void setNext(int next, char a)
+    {
+        switch (a)
+        {
+        case 'A':
+
+            this->nextState[0] = next;
+            break;
+
+        case 'C':
+
+            this->nextState[1] = next;
+            break;
+
+        case 'G':
+
+            this->nextState[2] = next;
+            break;
+
+        case 'T':
+
+            this->nextState[3] = next;
+            break;
+        default:
+            break;
+        }
+    }
+    void allapotKiir(void)
+    {
+        std::cout << "Az állapot neve: " << this->allapotName << " elfogadva:" << this->accepted << std::endl;
+        std::cout << "Az állapotból Adenin hatására a " << this->nextState[0] + 1 << ". állapotba lép." << std::endl;
+        std::cout << "Az állapotból Citozin hatására a " << this->nextState[1] + 1 << ". állapotba lép." << std::endl;
+        std::cout << "Az állapotból Guanin hatására a " << this->nextState[2] + 1 << ". állapotba lép." << std::endl;
+        std::cout << "Az állapotból Timin hatására a " << this->nextState[3] + 1 << ". állapotba lép." << std::endl;
+    }
 };
 bool charToBool(char a)
 {
@@ -94,7 +129,7 @@ bool charToBool(char a)
 
 int main(void)
 {
-    std::ifstream f("implikacio.txt");
+    std::ifstream f("paros.txt");
     std::string buffer;
     std::getline(f, buffer);
     // std::cout << buffer << std::endl;
@@ -108,19 +143,26 @@ int main(void)
         std::getline(f, buffer);
         allapotnev = buffer.substr(2);
         accepted = charToBool(buffer[0]);
-        std::cout << "Az állapot neve: " << allapotnev << " elfogadva:" << accepted << std::endl;
+        // std::cout << "Az állapot neve: " << allapotnev << " elfogadva:" << accepted << std::endl;
         allapotok[i].setAllapot(accepted, allapotnev);
-        std::cout << allapotok[i].accepted << allapotok[i].allapotName << std::endl;
+        // std::cout << allapotok[i].accepted << allapotok[i].allapotName << std::endl;
     }
+    /*sorokra for loop*/
     for (int i = 0; i < n; i++)
     {
         std::getline(f, buffer);
         std::istringstream stream(buffer);
         std::string token;
+        /*oszlopokra for loop*/
         for (int j = 0; j < n; j++)
         {
             stream >> token;
-            std::cout << "Column " << j + 1 << ": " << token << std::endl;
+            for (char a : token)
+            {
+                allapotok[i].setNext(j, a);
+                // std::cout << "line:" << i + 1 << " Column " << j + 1 << ": " << a << std::endl;
+            }
         }
+        allapotok[i].allapotKiir();
     }
 }
