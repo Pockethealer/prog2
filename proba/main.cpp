@@ -163,6 +163,7 @@ int main(void)
                 // std::cout << "line:" << i + 1 << " Column " << j + 1 << ": " << a << std::endl;
             }
         }
-        allapotok[i].allapotKiir();
+        // allapotok[i].allapotKiir();
     }
+    std::cout << allapotok[0].nextState[Timin] << std::endl;
 }
