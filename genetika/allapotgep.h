@@ -47,9 +47,9 @@ private:
         int nextState[4];
         void setNext(int next, char a);
     };
-    Allapot *allapotok;
-    int allapotokSzama;
-    int aktualisAllapot;
+    Allapot *allapotok = nullptr;
+    int allapotokSzama = 0;
+    int aktualisAllapot = 0;
 
 public:
     /**

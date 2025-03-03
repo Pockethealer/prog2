@@ -12,7 +12,7 @@ OBJECTS := $(SOURCES:%.cpp=%.o)
 
 
 $(TARGET): $(OBJECTS)
-	$(CCX) $^ -g -o $@ -ldl
+	$(CCX) $^ -g -o $@
 	
 %.o: %.c $(HEADERS)
 	$(CCX) $(CXXFLAGS) -c $<

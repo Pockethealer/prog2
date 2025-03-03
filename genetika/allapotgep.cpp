@@ -58,7 +58,10 @@ void Allapotgep::Allapot::setNext(int next, char a)
 
 void Allapotgep::konfigural(const char *fajlnev)
 {
-    alaphelyzet();
+    if (allapotok != nullptr)
+    {
+        alaphelyzet();
+    }
     std::ifstream f(fajlnev);
     if (!f.is_open())
     {
@@ -70,6 +73,10 @@ void Allapotgep::konfigural(const char *fajlnev)
     aktualisAllapot = 0;
     bool accepted;
     std::string allapotnev;
+    if (allapotok != nullptr)
+    {
+        delete[] allapotok;
+    }
     allapotok = new Allapot[allapotokSzama];
     for (int i = 0; i < allapotokSzama; i++)
     {
@@ -147,8 +154,11 @@ bool Allapotgep::feldolgoz(const Bazis *b, int n)
  */
 void Allapotgep::alaphelyzet()
 {
-    delete[] allapotok;
-    allapotok = nullptr;
+    if (allapotok != nullptr)
+    {
+        delete[] allapotok;
+        allapotok = nullptr;
+    }
     aktualisAllapot = 0;
     allapotokSzama = 0;
 }
