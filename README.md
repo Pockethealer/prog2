@@ -1,1 +1,1 @@
-A programozás alapjai 2 tárgyhoz készült gyakorlati feladatok, szorgalmik és házifeladatok gyűjteménye. by GL
+A programozás alapjai 2 tárgyhoz készült gyakorlati feladatok, szorgalmik és házifeladatok gyűjteménye. by GLcd
