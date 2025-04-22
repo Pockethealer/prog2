@@ -4,8 +4,8 @@ CXXFLAGS = -Wall -Wextra -std=c++11 -DMEMTRACE
 
 # mappák a forráskódnak, objektumoknak, és binárisnak, hogy átlátható maradjon
 SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = bin
+OBJ_DIR = src
+BIN_DIR = src
 
 #a forráskódok kiejelölése és konvertálása .o néven objektumokká, 
 #azért kell hogy a compile time tudja a g++ miket akart binárisba összerakni
@@ -13,7 +13,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(OBJ_DIR)/memtrace.o $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(filter-out $(SRC_DIR)/memtrace.cpp, $(SRCS)))
 
 # célfile
-TARGET = $(BIN_DIR)/auction
+TARGET = $(BIN_DIR)/teszt
 
 # megcsinálja a mappát neki ha nincs még, és utána egyesével compilelol elősször .o majd .exe-be
 all: create_dirs $(TARGET)

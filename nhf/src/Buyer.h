@@ -1,42 +1,66 @@
+/**
+ * @file Buyer.h
+ * A vásárlók osztályait tartalmazó header file
+ */
 #ifndef BUYER_H
 #define BUYER_H
-
-#include <iostream>
-#include <string>
-#include <cstdlib>
 #include "memtrace.h"
-using std::cout;
-using std::endl;
-using std::string;
+#include <iostream>
 
+/**
+ * A vásárló osztály absztrakt alaposztálya. Nem példányosítható.
+ */
 class Buyer
 {
-protected:
-    string name;
-    int budget;
+private:
+    std::string name;
+    double budget;
+    double alreadySpent = 0;
 
 public:
-    Buyer(string n, int b);
-    virtual bool placeBid(int currentPrice, int &bidAmount) = 0;
+    static double defBudget;
+    Buyer(std::string n, double b) : name(n), budget(b) {}
+    virtual double placeBid(double currentPrice, double step) = 0;
+    /// @brief Kiírja az adott vásárlót, csak a teszteléshez kell.
     virtual void displayBuyer() const;
+    /// @brief hozzáadja a már elköltött pénzhez a kapott argumentumot
+    /// @param i ennyivel növeli a már elköltött pénz változó értékét
+    virtual void addSpentMoney(double i) { alreadySpent += i; }
+    virtual double getSpentMoney() { return alreadySpent; }
     virtual ~Buyer() {}
-
-    string getName() const { return name; }
-    static Buyer *createRandomBuyer(string name, int budget);
+    std::string getName() const { return name; }
+    double getBudget() const { return budget; }
+    /// @brief Factory fv. a vásárlók példányosítására. Statikus hogy objektum nélkül is hívható legyen.
+    /// @param name a vásáló neve
+    /// @param budget a vásárló pénze
+    /// @return pointer a létrehozott vásárló objektumra
+    static Buyer *createBuyer(std::string name, double budget, bool aggressive);
 };
-
-class ConservativeBuyer : public Buyer
+/**
+ * A passzív vásárlót leíró osztály, visszafogottabban licitál
+ */
+class PassiveBuyer : public Buyer
 {
 public:
-    ConservativeBuyer(string n, int b);
-    bool placeBid(int currentPrice, int &bidAmount) override;
+    PassiveBuyer(std::string n, double b) : Buyer(n, b) {}
+    /// @brief eldönti hogy licitál e az adott feltételek mellett, majd visszatér a feltett értékkel
+    /// @param currentPrice az eladási tárgy jelenlegi ára
+    /// @param step a minimumm licitlépcső
+    /// @return visszatér a licit értékével, vagy 0-val ha nem licitál.
+    double placeBid(double currentPrice, double step);
 };
-
+/**
+ * Az agresszív vásárlót leíró osztály, nagyobbat és nagyobb eséllyel licitál
+ */
 class AggressiveBuyer : public Buyer
 {
 public:
-    AggressiveBuyer(string n, int b);
-    bool placeBid(int currentPrice, int &bidAmount) override;
+    AggressiveBuyer(std::string n, int b) : Buyer(n, b) {}
+    /// @brief eldönti hogy licitál e az adott feltételek mellett, majd visszatér a feltett értékkel
+    /// @param currentPrice az eladási tárgy jelenlegi ára
+    /// @param step a minimumm licitlépcső
+    /// @return visszatér a licit értékével, vagy 0-val ha nem licitál.
+    double placeBid(double currentPrice, double step);
 };
 
 #endif

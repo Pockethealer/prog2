@@ -1,0 +1,4 @@
+3
+proba1 100 5
+proba2 50 10
+proba3 110 3
