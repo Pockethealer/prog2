@@ -41,7 +41,6 @@ void Allapotgep::Allapot::setNext(int next, char a)
 
         this->nextState[1] = next;
         break;
-
     case 'G':
 
         this->nextState[2] = next;
@@ -154,7 +153,7 @@ bool Allapotgep::feldolgoz(const Bazis *b, int n)
  */
 void Allapotgep::alaphelyzet()
 {
-    if (allapotok != nullptr)
+    if (!allapotok)
     {
         delete[] allapotok;
         allapotok = nullptr;
