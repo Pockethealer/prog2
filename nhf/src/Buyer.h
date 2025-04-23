@@ -15,26 +15,27 @@ class Buyer
 private:
     std::string name;
     double budget;
-    double alreadySpent = 0;
+    double alreadySpent;
 
 public:
     static double defBudget;
-    Buyer(std::string n, double b) : name(n), budget(b) {}
-    virtual double placeBid(double currentPrice, double step) = 0;
+    Buyer(const std::string n, const double b) : name(n), budget(b), alreadySpent(0) {}
+    virtual double placeBid(const double currentPrice, const double step) const = 0;
     /// @brief Kiírja az adott vásárlót, csak a teszteléshez kell.
     virtual void displayBuyer() const;
-    /// @brief hozzáadja a már elköltött pénzhez a kapott argumentumot
-    /// @param i ennyivel növeli a már elköltött pénz változó értékét
-    virtual void addSpentMoney(double i) { alreadySpent += i; }
-    virtual double getSpentMoney() { return alreadySpent; }
+    /// @brief Hozzáadja a már elköltött pénzhez a kapott argumentumot
+    /// @param i Ennyivel növeli a már elköltött pénz változó értékét
+    virtual void addSpentMoney(const double i) { alreadySpent += i; }
+    virtual double getSpentMoney() const { return alreadySpent; }
     virtual ~Buyer() {}
     std::string getName() const { return name; }
     double getBudget() const { return budget; }
     /// @brief Factory fv. a vásárlók példányosítására. Statikus hogy objektum nélkül is hívható legyen.
-    /// @param name a vásáló neve
-    /// @param budget a vásárló pénze
-    /// @return pointer a létrehozott vásárló objektumra
-    static Buyer *createBuyer(std::string name, double budget, bool aggressive);
+    /// @param name A vásáló neve
+    /// @param budget A vásárló pénze
+    /// @param aggressive Igaz ha agresszív buyert szeretnénk, később bővíthető integerré, ha több leszármazott van
+    /// @return Pointer a létrehozott vásárló objektumra
+    static Buyer *createBuyer(const std::string name, const double budget, const bool aggressive);
 };
 /**
  * A passzív vásárlót leíró osztály, visszafogottabban licitál
@@ -42,12 +43,12 @@ public:
 class PassiveBuyer : public Buyer
 {
 public:
-    PassiveBuyer(std::string n, double b) : Buyer(n, b) {}
-    /// @brief eldönti hogy licitál e az adott feltételek mellett, majd visszatér a feltett értékkel
-    /// @param currentPrice az eladási tárgy jelenlegi ára
-    /// @param step a minimumm licitlépcső
-    /// @return visszatér a licit értékével, vagy 0-val ha nem licitál.
-    double placeBid(double currentPrice, double step);
+    PassiveBuyer(const std::string n, const double b) : Buyer(n, b) {}
+    /// @brief Eldönti hogy licitál e az adott feltételek mellett, majd visszatér a feltett értékkel
+    /// @param currentPrice Az eladási tárgy jelenlegi ára
+    /// @param step A minimumm licitlépcső
+    /// @return Visszatér a licit értékével, vagy 0-val ha nem licitál.
+    double placeBid(const double currentPrice, const double step) const;
 };
 /**
  * Az agresszív vásárlót leíró osztály, nagyobbat és nagyobb eséllyel licitál
@@ -55,12 +56,12 @@ public:
 class AggressiveBuyer : public Buyer
 {
 public:
-    AggressiveBuyer(std::string n, int b) : Buyer(n, b) {}
-    /// @brief eldönti hogy licitál e az adott feltételek mellett, majd visszatér a feltett értékkel
-    /// @param currentPrice az eladási tárgy jelenlegi ára
-    /// @param step a minimumm licitlépcső
-    /// @return visszatér a licit értékével, vagy 0-val ha nem licitál.
-    double placeBid(double currentPrice, double step);
+    AggressiveBuyer(const std::string n, const int b) : Buyer(n, b) {}
+    /// @brief Eldönti hogy licitál e az adott feltételek mellett, majd visszatér a feltett értékkel
+    /// @param currentPrice Az eladási tárgy jelenlegi ára
+    /// @param step A minimumm licitlépcső
+    /// @return Visszatér a licit értékével, vagy 0-val ha nem licitál.
+    double placeBid(const double currentPrice, const double step) const;
 };
 
 #endif
